@@ -1,40 +1,33 @@
 #!/usr/bin/python
 
 import sys
-from solver import *
-
+import solver
+import utils
 def	parse():
 	operation = sys.argv[1].split("=")
-	left = operation[0].replace(' ', '')
-	right = operation[1].replace(' ', '')
-	degree = 0
-	if left.find('X^') != -1:
-		index = left.find('X^')
-		i = index + 2
-		while i < len(left) and left[i] != ' ':
-			i += 1
-			print (left[i])
-		degree = int(left[index + 2: i])
-		print (degree)
-	if right.find('X^') != -1:
-		index = right.find('X^')
-		i = index + 2
-		while i < len(right) and right[i] != ' ':
-			i += 1
-		tmp_degree = int(right[index + 2: i])
-		if tmp_degree > degree:
-			degree = tmp_degree
+	left = operation[0]
+	right = operation[1]
+	degree = -1
+	left_degree = utils.get_degree(left)
+	right_degree = utils.get_degree(right)
+	if left_degree > right_degree:
+		degree = left_degree
+	else:
+		degree = right_degree
+	if degree == -1:
+		return print('Syntax error, there is no ^X in your entree, please double check it.')
 	print('Polynomial degree : '+str(degree))
 	if degree == 0:
-		res = resolve_zero_degree(left, right)
+		res = solver.resolve_zero_degree(left, right)
 	elif degree == 1:
-		res = resolve_first_degree(left, right)
+		res = solver.resolve_first_degree(left, right)
 	elif degree == 2:
-		res = resolve_second_degree(left, right)
+		res = solver.resolve_second_degree(left, right)
 	elif degree > 2:
+		res = -1
 		print('The Polynomial degree is stricly greater than 2. I can\'t solve.')
+	return res
 def main():
 	if len(sys.argv) == 2:
 		parse()
-
 main()
