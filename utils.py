@@ -5,15 +5,47 @@ def sum_of_num(numb_array):
 	return 	res
 	
 def extract_numbers(numb_array):
-	tmp_arr = []
-	tmp_arr2 = []
-	for item in numb_array:
-		if item.find('X^1') != -1:
-			tmp_arr.append(item.split('*')[0])
-		else:
-			tmp_arr2.append(item.split('*')[0])
-	return tmp_arr, tmp_arr2
+	numbers = []
+	unknown = []
+	i = 0
+	while (i < len(numb_array)):
+		if numb_array[i] == '-' or numb_array[i] == '+':
+			j = numb_array.find('^', i ) + 1
+			if numb_array[j] == '0':
+				numbers.append(numb_array[i:numb_array.find('*', i)])
+			elif numb_array.find(' ', j) != -1:
+				unknown.append(numb_array[i:numb_array.find(' ', j)])
+			else:
+				unknown.append(numb_array[i:])
+		i += 1
+	return numbers, unknown
 
+def clean_list(numb_array, part):
+	new_numb_array = []
+	for numbers in numb_array:
+		numbers = numbers.replace(' ', '')
+		numbers = int(numbers)
+		if part == 'right':
+			numbers = numbers * -1
+		new_numb_array.append(numbers)
+	return new_numb_array
+
+def get_power(vars_str):
+	power_index = vars_str.find('^') + 1
+	power = int(vars_str[power_index:])
+	return power
+
+def clean_vars(numb_array, part):
+	new_vars_dict = {}
+	for numbers in numb_array:
+		numbers = numbers.replace(' ', '')
+		numbers = numbers.split('*')
+		power = get_power(numbers[1])
+		if part == 'right':
+			new_vars_dict[power] = int(numbers[0]) * -1
+		else:
+			new_vars_dict[power] = int(numbers[0])
+	return new_vars_dict
 def get_degree(numb_str):
 	i = 0
 	degree = -1
@@ -33,16 +65,22 @@ def count_minus(left, right):
 	count = 0
 	while i < len(left):
 		if left[i] == '-' and left[i + left.find('^') + 1] > '0':
+			left = list(left)
+			left[i] = '+'
+			left = "".join(left)
 			count += 1
 		i += 1
 	i = 0
 	while i < len(right):
 		if right[i] == '-' and right[i + right.find('^') + 1] > '0':
+			right = list(right)
+			right[i] = '+'
+			right = "".join(right)
 			count += 1
 		i += 1
 	print(count)
 	if count % 2 != 0:
-		return 1
+		return 1, left, right
 	else:
-		return 0
-	return 0
+		return 0, left, right
+	return 0, left, right
