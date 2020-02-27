@@ -32,15 +32,15 @@ def count_minus(left, right):
 	i = 0 
 	count = 0
 	while i < len(left):
-		if left[i] == '-' and left[i + 4] != '0':
-			print(left[i + 4])
+		if left[i] == '-' and left[i + left.find('^') + 1] > '0':
 			count += 1
 		i += 1
+	i = 0
 	while i < len(right):
-		if right[i] == '-' and right[i + 4] != '0':
-			print(right[i + 4])
+		if right[i] == '-' and right[i + right.find('^') + 1] > '0':
 			count += 1
-		i += 1	
+		i += 1
+	print(count)
 	if count % 2 != 0:
 		return 1
 	else:

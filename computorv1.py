@@ -15,7 +15,8 @@ def	parse():
 	else:
 		degree = right_degree
 	if degree == -1:
-		return print('Syntax error, there is no ^X in your entree, please double check it.')
+		print('Syntax error, there is no ^X in your entree, please double check it.')
+		return -1
 	print('Polynomial degree : '+str(degree))
 	if degree == 0:
 		res = solver.resolve_zero_degree(left, right)

@@ -19,7 +19,9 @@ def resolve_first_degree(left, right):
 	right_no_spc = right.replace(' ', '')
 	print(left_no_spc, right_no_spc)
 	isneg = utils.count_minus(left_no_spc, right_no_spc)
-	print(isneg)
+	print ('isneg = '+str(isneg))
+	right_no_spc = right_no_spc.replace('-', '')
+	left_no_spc = left_no_spc.replace('-', '')
 	arr_left = left_no_spc.split('+')
 	arr_right = right_no_spc.split('+')
 	res_l = []
