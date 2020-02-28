@@ -46,8 +46,9 @@ def resolve_first_degree(left, right):
 	right_numbers = utils.clean_list(right_numbers, 'right')
 	right_x = utils.clean_vars(right_x, 'right')
 	left_numbers = left_numbers + right_numbers
-	print(right_x, left_x)
-	left_x = left_x + right_x
+	print(left_x, right_x)
+	unkowns_cleaned = dict(list(left_x.items()) + list(right_x.items()))
+	print(unkowns_cleaned)
 	return 1
 def resolve_second_degree(left, right):
 	return 1

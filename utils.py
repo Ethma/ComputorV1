@@ -8,8 +8,9 @@ def extract_numbers(numb_array):
 	numbers = []
 	unknown = []
 	i = 0
+	print ('numb_array ='+str(numb_array))
 	while (i < len(numb_array)):
-		if numb_array[i] == '-' or numb_array[i] == '+':
+		if numb_array[i] == '-' or numb_array[i] == '+' or (i == 0 and numb_array[i + 1] != '-'):
 			j = numb_array.find('^', i ) + 1
 			if numb_array[j] == '0':
 				numbers.append(numb_array[i:numb_array.find('*', i)])
@@ -35,17 +36,46 @@ def get_power(vars_str):
 	power = int(vars_str[power_index:])
 	return power
 
-def clean_vars(numb_array, part):
+""" def clean_vars(numb_array, part):
 	new_vars_dict = {}
+	vars_array = []
+	flag = 0
 	for numbers in numb_array:
 		numbers = numbers.replace(' ', '')
 		numbers = numbers.split('*')
 		power = get_power(numbers[1])
-		if part == 'right':
+		if part == 'right' and flag == 0:
 			new_vars_dict[power] = int(numbers[0]) * -1
-		else:
+			flag = 1
+		elif flag == 0:
+			flag = 1
 			new_vars_dict[power] = int(numbers[0])
+		else:
+			new_vars_dict[power] += int(numbers[0])
 	return new_vars_dict
+ """
+def clean_vars(numb_array, part):
+	new_vars_dict = {}
+	print(numb_array)
+	vars_array = []
+	flag = 0
+	for numbers in numb_array:
+		numbers = numbers.replace(' ', '')
+		numbers = numbers.split('*')
+		power = get_power(numbers[1])
+		if part == 'right' and flag == 0:
+			new_vars_dict[power] = int(numbers[0]) * -1
+			flag = 1
+		elif flag == 0:
+			flag = 1
+			new_vars_dict[power] = int(numbers[0])
+		else:
+			print (new_vars_dict[power])
+			print (int(numbers[0]))
+			new_vars_dict[power] = new_vars_dict[power] + int(numbers[0])
+	return new_vars_dict
+
+
 def get_degree(numb_str):
 	i = 0
 	degree = -1
