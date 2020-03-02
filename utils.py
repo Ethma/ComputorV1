@@ -4,7 +4,7 @@ def sum_of_num(numb_array):
 		res += int(numbers)
 	return 	res
 	
-def extract_numbers(numb_array):
+def extract_numbers(numb_array, degree):
 	numbers = []
 	unknown = []
 	i = 0
@@ -18,8 +18,42 @@ def extract_numbers(numb_array):
 			else:
 				unknown.append(numb_array[i:])
 		i += 1
+	if degree == 0:
+		return numbers
 	return numbers, unknown
 
+def get_discriminant(a, b, c):
+	discriminant = (b * b)- (4 * a * c)
+	return discriminant
+
+def get_reduced_form(a, b, c, degree):
+	print('Polynomial degree : '+str(degree))
+	if degree == 0:
+		if a == b:
+			print(str(a)+'* X^0 = '+str(b)+' * X^0') 
+			print('The solution is: ')
+			print('All real numbers')
+		else:
+			print(str(a)+' is not equal to'+' '+str(b))
+			print('There is no solution.')
+	elif degree == 1:
+		if a >= 0:
+			print ('Reduced form is : '+str(b)+' * X^1 + '+str(a)+' * X^0 = 0')
+		else:
+			print ('Reduced form is : '+str(b)+' * X^1 - '+str(a)+' * X^0 = 0')
+	else:
+		pass
+
+def get_results(a, b, discriminant):
+	if discriminant == 0:
+		print('Discriminant is zero, the two solutions are: ')
+		get_results(a,b,discriminant)
+	elif discriminant > 0:
+		print('Discriminant is strictly positive, the two solutions are: ')
+		get_results(a,b,discriminant)
+	else:
+		print('Discriminant is strictly negative, there is no real solution. Instead there is two imaginary solutions: ')
+		get_results(a,b,discriminant)
 def clean_list(numb_array, part):
 	new_numb_array = []
 	for numbers in numb_array:
@@ -35,28 +69,29 @@ def get_power(vars_str):
 	power = int(vars_str[power_index:])
 	return power
 
-def final_clean(left_x, right_x, numbers):
+def final_clean(left_x, right_x, numbers, degree):
 	number = 0
-	for x, y in zip(left_x.keys(), right_x.keys()):
-		if x == y:
-			left_x[x] += right_x[y]
+	if left_x != {}:
+		for x, y in zip(left_x.keys(), right_x.keys()):
+			if x == y:
+				left_x[x] += right_x[y]
+	else:
+		left_x = right_x
 	for num in numbers:
 		number += num
+	if degree == 0:
+		return number
 	return left_x, number
 
 def clean_vars(numb_array, part):
 	new_vars_dict = {}
-	print(numb_array)
-	flag = 0
 	for numbers in numb_array:
 		numbers = numbers.replace(' ', '')
 		numbers = numbers.split('*')
 		power = get_power(numbers[1])
-		if part == 'right' and flag == 0:
+		if part == 'right' and power not in new_vars_dict:
 			new_vars_dict[power] = int(numbers[0]) * -1
-			flag = 1
-		elif flag == 0:
-			flag = 1
+		elif power not in new_vars_dict:
 			new_vars_dict[power] = int(numbers[0])
 		else:
 			if part == 'right':

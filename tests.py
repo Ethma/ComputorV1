@@ -6,22 +6,26 @@ import solver
 file = 'computorv1'
 test = ''
 
-def which_one(number):
-	if number == "1":
-		tests_basics()
-	if number == "2":
-		tests_intermediate()
-	return 1
-
-def tests_intermediate():
-	pass
-
-def tests_basics():
+def tests():
 	test_right = "5 * X^0 + 4 * X^1 - 9.3 * X^2" 
 	test_left = "1 * X^0"
 	solver.resolve_second_degree(test_left, test_right)
-	test_left = '4 * X^0'
-	test_right = '-5 * X^0 + 4 * X^1'
-	solver.resolve_first_degree(test_left, test_right)
-if len(sys.argv) == 2:
-	which_one(sys.argv[1])
+	solver.resolve_first_degree('4 * X^0', '-5 * X^0 + 4 * X^1')
+	print('ENTRY = 4 * X^0', '-5 * X^0 + 4 * X^1')
+	solver.resolve_first_degree('-5 * X^0 + 4 * X^1', '-5 * X^0 + 4 * X^1')
+	print('ENTRY = -5 * X^0 + 4 * X^1', '-5 * X^0 + 4 * X^1')
+	solver.resolve_first_degree('1 * X^0 + 4 * X^1', '-5 * X^0 + 4 * X^1')
+	print('ENTRY = 1 * X^0 + 4 * X^1', '-5 * X^0 + 4 * X^1')
+	solver.resolve_zero_degree('42 * X^0', '42 * X^0')
+	print('ENTRY = 42 * X^0', '42 * X^0')
+	solver.resolve_zero_degree('40 * X^0', '42 * X^0')
+	print('ENTRY = 40 * X^0', '42 * X^0')
+	solver.resolve_zero_degree(' - 42 * X^0', '42 * X^0')
+	print('ENTRY =  - 42 * X^0', '42 * X^0')
+	solver.resolve_zero_degree(' 42 * X^0', '0 * X^0')
+	print('ENTRY =  42 * X^0', '0 * X^0')
+	solver.resolve_zero_degree(' 42 * X^0', '40 * X^0')
+	print('ENTRY =  42 * X^0', '40 * X^0')
+	solver.resolve_zero_degree(' 42 * X^0', ' - 42 * X^0')
+	print('ENTRY =  42 * X^0', ' - 42 * X^0')
+tests()

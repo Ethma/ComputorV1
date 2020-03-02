@@ -17,17 +17,14 @@ def	parse():
 	if degree == -1:
 		print('Syntax error, there is no ^X in your entree, please double check it.')
 		return -1
-	print('Polynomial degree : '+str(degree))
 	if degree == 0:
-		res = solver.resolve_zero_degree(left, right)
+		solver.resolve_zero_degree(left, right)
 	elif degree == 1:
-		res = solver.resolve_first_degree(left, right)
+		solver.resolve_first_degree(left, right)
 	elif degree == 2:
-		res = solver.resolve_second_degree(left, right)
+		solver.resolve_second_degree(left, right)
 	elif degree > 2:
-		res = -1
 		print('The Polynomial degree is stricly greater than 2. I can\'t solve.')
-	return res
 def main():
 	if len(sys.argv) == 2:
 		parse()
