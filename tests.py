@@ -28,4 +28,6 @@ def tests():
 	print('ENTRY =  42 * X^0', '40 * X^0')
 	solver.resolve_zero_degree(' 42 * X^0', ' - 42 * X^0')
 	print('ENTRY =  42 * X^0', ' - 42 * X^0')
+	solver.resolve_second_degree('5 * X^2 - 10 * X^0 ', '15 * X^0 - 15 * X^0 + 5 * X^2')
+	print('ENTRY =  5 * X^2 - 10 * X^0 ', '15 * X^0 - 15 * X^0 + 5 * X^2')
 tests()
