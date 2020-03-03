@@ -55,8 +55,8 @@ def get_results(a, b, discriminant):
 		print(float(-b / (2 * a)))
 	elif discriminant > 0:
 		print('Discriminant is strictly positive, the two solutions are: ')
-		first_sol = float((-b + (discriminant ** 0.5)) / (2  *a) )
-		second_sol = float((-b - (discriminant ** 0.5)) / (2  *a) )
+		first_sol = float((-b + (discriminant ** 0.5)) / (2  * a) )
+		second_sol = float((-b - (discriminant ** 0.5)) / (2  * a) )
 		print(first_sol)
 		print(second_sol)
 	else:

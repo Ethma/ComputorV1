@@ -3,9 +3,10 @@ import utils
 
 def final_solver_first_degree(factor_up, factor_down):
 	if factor_down == 0:
-		utils.get_reduced_form((factor_up, factor_down), 0)
+		print(factor_up)
+		utils.get_reduced_form((factor_up,), 0)
 	else:
-		utils.get_reduced_form((factor_up, factor_down), 1)
+		utils.get_reduced_form((factor_down, factor_up), 1)
 	if factor_up == 0 and factor_down == 0:
 		print('The solution is :')
 		print ('All the real numbers')
