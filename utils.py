@@ -62,7 +62,7 @@ def get_results(a, b, discriminant):
 	else:
 		print('Discriminant is strictly negative, there is no real solution. Instead there is two imaginary solutions: ')
 		first_sol_real = (-b / (2 * a))
-		first_sol_im = ((- discriminant) ** 0.5) / (2 * a)
+		first_sol_im = float(((- discriminant) ** 0.5)) / float((2 * a))
 		second_sol_real = first_sol_real
 		second_sol_im = first_sol_im * -1
 		if first_sol_im > 0:
