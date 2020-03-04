@@ -1,3 +1,4 @@
+
 def sum_of_num(numb_array):
 	res = 0
 	for numbers in numb_array:
@@ -23,7 +24,7 @@ def extract_numbers(numb_array, degree):
 	return numbers, unknown
 
 def get_discriminant(a, b, c):
-	discriminant = (b * b) - (4 * a * c)
+	discriminant = (b ** 2) - (4 * a * c)
 	return discriminant
 
 def get_reduced_form(numbers, degree):
@@ -62,7 +63,7 @@ def get_results(a, b, discriminant):
 	else:
 		print('Discriminant is strictly negative, there is no real solution. Instead there is two imaginary solutions: ')
 		first_sol_real = (-b / (2 * a))
-		first_sol_im = float(((- discriminant) ** 0.5)) / float((2 * a))
+		first_sol_im = ((- discriminant) ** 0.5) / (2* a)
 		second_sol_real = first_sol_real
 		second_sol_im = first_sol_im * -1
 		if first_sol_im > 0:
@@ -133,34 +134,14 @@ def get_degree(numb_str):
 		if numb_str[i] == 'X' and numb_str[i + 1] == '^':
 			j = i
 			while j < len(numb_str) and numb_str[j] != ' ':
+				if ((numb_str[j] == '-' and numb_str[j - 1] == '^') or numb_str[j] == '.' or numb_str[j] == ','):
+					return -2
 				j += 1
-			tmp_degree = int(numb_str[i + 2: j])
+			if numb_str[i + 2: j] >= '0' and numb_str[i + 2:j] <= '9': 
+				tmp_degree = int(numb_str[i + 2: j])
+			else:
+				return -2
 			if tmp_degree > degree:
 				degree = tmp_degree
 		i += 1
 	return degree
-
-def count_minus(left, right):
-	i = 0 
-	count = 0
-	while i < len(left):
-		if left[i] == '-' and left[i + left.find('^') + 1] > '0':
-			left = list(left)
-			left[i] = '+'
-			left = "".join(left)
-			count += 1
-		i += 1
-	i = 0
-	while i < len(right):
-		if right[i] == '-' and right[i + right.find('^') + 1] > '0':
-			right = list(right)
-			right[i] = '+'
-			right = "".join(right)
-			count += 1
-		i += 1
-	print(count)
-	if count % 2 != 0:
-		return 1, left, right
-	else:
-		return 0, left, right
-	return 0, left, right
